@@ -4,6 +4,8 @@ require 'nokogiri'
 page = rand(24) + 1
 questions = []
 answers = []
+combined = []
+count = 0
 
 q_a = Nokogiri::HTML(open("http://readymadepubquiz.com/quiz-#{page}-round-7-general-knowledge/"))
 q_a.xpath('//div[@class = "entry_content"]/p/strong').each do |question|
@@ -14,5 +16,10 @@ q_a.xpath('//div[@class = "entry_content"]/p/em').each do |answer|
   answers.push(answer.text.chomp)
 end
 
-puts questions
-puts answers
+while count < questions.length
+  combined[count] = {:"#{questions[count]}" =>  "#{answers[count]}"}
+  count += 1
+end
+
+puts combined
+
